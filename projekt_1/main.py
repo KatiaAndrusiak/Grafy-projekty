@@ -1,7 +1,9 @@
 import sys
-import convert_functions as cf
-import print_functions as pf
-import plot_functions as plt
+import os, os.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
+from utils import convert_functions as cf
+from utils import print_functions as pf
+from utils import plot_functions as plt
 
 adj_task_matrix = []
 adj_task_list = []
@@ -52,13 +54,13 @@ elif (sys.argv[1] == '--im'):
 # Przed pierwszym uruchomieniem:
 # pip install -r requirements.txt
 # Aby uruchomić kod trzeba podać flagę oraz scieżkę do pliku, np:
-# python task1.py --am ./nazwa_pliku
+# Zadanie 1
+# python main.py --am ./nazwa_pliku
 # --am -  macierz sąsiedztwa
 # --al -  lista sąsiedztwa
 # --im -  macierz incydencji
 
 ##############################################################
-# (Zadanie 2) Wykresy generowane na podstawie listy sasiedztwa
-
+# (Zadanie 2) Wykresy generowane przy kazdym uruchomieniu zadania 1
 
 
