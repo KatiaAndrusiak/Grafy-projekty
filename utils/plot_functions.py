@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from math import sin, cos, radians
 
-def plotCircleGraph(adjacencyList):
+def plotCircleGraph(adjacencyList,title="Circle graph"):
     radius = 12
     circle = plt.Circle((0, 0), radius, color = 'red', linestyle = '-', fill = False)
 
@@ -26,7 +26,7 @@ def plotCircleGraph(adjacencyList):
         node = plt.Circle((x, y), 1.2, color = 'green')
         ax.text(x - 0.35 , y - 0.35, f'{i+1}', color='white')
         ax.add_patch(node)
-    plt.title("Circle graph")
+    plt.title(title)
     plt.axis('off')
-    plt.show()
+    plt.show(block=False)
 
