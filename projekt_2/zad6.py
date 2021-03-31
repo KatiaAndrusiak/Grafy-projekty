@@ -57,3 +57,7 @@ if __name__ == '__main__':
     else:
         plt.plotCircleGraph(adj_list)
         pf.print_hamiltonian_cycle(cycle_path)
+
+
+# Aby uruchomić kod trzeba podać scieżkę do pliku, np:
+# python zad6.py ./nazwa_pliku
