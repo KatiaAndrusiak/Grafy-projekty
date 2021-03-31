@@ -13,3 +13,13 @@ def print_adj_list(list):
         print(str(i + 1) + ". ", end="")
         print(list[i])
     print()
+
+def print_hamiltonian_cycle(list):
+    print("Cykl Hamiltona: ")
+    for i in range(len(list)):
+        if i == len(list) - 1:
+            print(str(list[i] + 1))
+        else:
+            print(str(list[i] + 1), end=" -> ")
+    print()
+        
