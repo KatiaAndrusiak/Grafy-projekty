@@ -99,7 +99,7 @@ def randomize_edges(am, n):
 
 if __name__ == '__main__':
     degree_sequence = []
-    degree_sequence = read_list_from_file("degreeSeq.txt", degree_sequence)
+    degree_sequence = read_list_from_file("degreeSeq_zad1.txt", degree_sequence)
 
     degree_sequence = list(map(int, degree_sequence))
 
