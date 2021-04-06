@@ -82,5 +82,6 @@ def generate_connected_weigted_graph(n, l):
 
 
 ####################
-adjListT, weight_edgesT = generate_connected_weigted_graph(9, 8)
-draw_graph_with_weight(adjListT, weight_edgesT, 9)
+if __name__ == '__main__':
+    adjListT, weight_edgesT = generate_connected_weigted_graph(9, 8)
+    draw_graph_with_weight(adjListT, weight_edgesT, 9)
