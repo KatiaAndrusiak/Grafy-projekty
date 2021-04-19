@@ -51,14 +51,6 @@ elif (sys.argv[1] == '--im'):
     #plot
     plt.plotCircleGraph(adjl)
 
-# Przed pierwszym uruchomieniem:
-# pip install -r requirements.txt
-# Aby uruchomić kod trzeba podać flagę oraz scieżkę do pliku, np:
-# Zadanie 1
-# python main.py --am ./nazwa_pliku
-# --am -  macierz sąsiedztwa
-# --al -  lista sąsiedztwa
-# --im -  macierz incydencji
 
 ##############################################################
 # (Zadanie 2) Wykresy generowane przy kazdym uruchomieniu zadania 1
