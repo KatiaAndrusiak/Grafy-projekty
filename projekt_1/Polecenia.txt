@@ -7,3 +7,5 @@ Zadanie 1
     --al -  lista sąsiedztwa
     --im -  macierz incydencji
 
+Zadanie 3
+    python zad3.py
