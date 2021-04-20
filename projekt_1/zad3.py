@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import sys
 import os, os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
@@ -27,9 +26,7 @@ def random_graph_with_edge_as_probability(n, p):
     
     adj_list = [[] for q in range(n)]
     for v1 in range(1,n+1,1):
-        for v2 in range(v1,n+1,1):
-            if v1 == v2:
-                continue
+        for v2 in range(v1+1,n+1,1):
             rand = random()
             if rand <= p and v1 not in adj_list[v2-1] and v2 not in adj_list[v1-1]:
                 adj_list[v1-1].append(v2)
