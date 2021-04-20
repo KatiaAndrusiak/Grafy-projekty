@@ -2,10 +2,10 @@ Przed pierwszym uruchomieniem:
 pip install -r requirements.txt
 Aby uruchomić kod trzeba podać flagę oraz scieżkę do pliku, np:
 Zadanie 1
-    python main.py --am ./nazwa_pliku
-    --am -  macierz sąsiedztwa
-    --al -  lista sąsiedztwa
-    --im -  macierz incydencji
+    python zad1-2.py --am ./nazwa_pliku
+    --am -  macierz sąsiedztwa (macierzA.txt)
+    --al -  lista sąsiedztwa (listaA.txt)
+    --im -  macierz incydencji (macierzI.txt)
 
 Zadanie 3
     python zad3.py
