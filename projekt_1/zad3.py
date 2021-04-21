@@ -32,6 +32,9 @@ def random_graph_with_edge_as_probability(n, p):
                 adj_list[v1-1].append(v2)
                 adj_list[v2-1].append(v1)
     return adj_list
+
+
+
 while True:
     n = int(input("Podaj liczbe wierzcholkow grafu: "))
     if n>0:
@@ -39,7 +42,9 @@ while True:
 while True:
     l = int(input("Podaj liczbe krawedzi do utworzenia: "))
     if l > ((n*(n-1))/2):
-        print("Maksymalna liczba krawedzi dla tego n to "+str(int(((n*(n-1))/2)))+". Prosze wybrac mniejsza wartosc")
+        print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+". Prosze wybrac mniejsza wartosc")
+    elif l<0:
+        print("Liczba krawedzi musi byc nieujemna")
     else:
         break
 while True :   
@@ -50,13 +55,12 @@ while True :
 adj_list_number = random_graph_with_number_of_edges(n, l)
 adj_list_prob = random_graph_with_edge_as_probability(n, p)
 
-print()
+print("lista sasiedztwa grafu z L-krawedziami")
 for i in adj_list_number:
     print(i)
 
 print("\n\n")
-
-print()
+print("lista sasiedztwa grafu z P-krawedziami")
 for i in adj_list_prob:
     print(i)
     
