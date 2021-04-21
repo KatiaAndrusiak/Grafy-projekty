@@ -19,8 +19,8 @@ def plotCircleGraph(adjacencyList,title="Circle graph"):
         y = radius * sin(radians(angle))
         
         for j in adjacencyList[i]:
-            x2 = -radius * cos(radians(((j-1) / n * 360)))
-            y2 = radius * sin(radians(((j-1) / n * 360)))
+            x2 = -radius * cos(radians(((j-1) * diff_angle)))
+            y2 = radius * sin(radians(((j-1) * diff_angle)))
             ax.plot([x, x2], [y, y2], color = 'black')
 
         node = plt.Circle((x, y), 1.2, color = 'green')
