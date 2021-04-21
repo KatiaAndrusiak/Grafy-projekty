@@ -44,7 +44,8 @@ def convert_adj_list_to_adj_matrix(list):
     return adj_matrix
 
 def convert_adj_list_to_inc_matrix(list):
-    copy_list = [row[:] for row in list]
+    copy_list = [row[:] for row in list]   
+    
     edges = 0
     for row in list:
         edges += len(row)
@@ -62,7 +63,7 @@ def convert_adj_list_to_inc_matrix(list):
 
 def convert_inc_matrix_to_adj_matrix(matrix):
     n = len(matrix)
-    inc_matrix = [[0 for i in range(0, n)] for j in range(0, n)]
+    adj_matrix = [[0 for i in range(0, n)] for j in range(0, n)]
     for i in range(len(matrix[0])):
         start = False
         index = 0
@@ -71,9 +72,9 @@ def convert_inc_matrix_to_adj_matrix(matrix):
                 start = True
                 index = j
             elif matrix[j][i] == 1 and start == True:
-                inc_matrix[index][j] = 1
-                inc_matrix[j][index] = 1
-    return inc_matrix
+                adj_matrix[index][j] = 1
+                adj_matrix[j][index] = 1
+    return adj_matrix
 
 def convert_inc_matrix_to_adj_list(matrix):
     n = len(matrix)
