@@ -38,9 +38,18 @@ def random_graph_with_edge_as_probability(n, p):
 n=0;
 l=0;
 p=0.0;
-if sys.argv[1] == "--gnl":
-    n= int(sys.argv[2])
-    l= int(sys.argv[3])
+
+
+if len(sys.argv)==1 or len(sys.argv)>4:
+    print("Zla liczba argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+    sys.exit(-1)
+elif sys.argv[1] == "--gnl" and len(sys.argv)==4:
+    try:    
+        n= int(sys.argv[2])
+        l= int(sys.argv[3])
+    except Exception as e:
+        print(e)
+        sys.exit(-1)
     if n<0:
         print("liczba wierzcholkow musi byc nieujemna")
         sys.exit(-1)
@@ -65,9 +74,13 @@ if sys.argv[1] == "--gnl":
     plotter.plotCircleGraph(adj_list_number,"Graf z L-krawedziami")
 
     
-if sys.argv[1] == "--gnp":
-    n=int(sys.argv[2])
-    p=float(sys.argv[3])
+elif sys.argv[1] == "--gnp" and len(sys.argv)==4:
+    try:
+        n=int(sys.argv[2])
+        p=float(sys.argv[3])
+    except Exception as e:
+        print(e)
+        sys.exit(-1)
     if n<0:
         print("liczba wierzcholkow musi byc nieujemna")
         sys.exit(-1)
@@ -89,6 +102,12 @@ if sys.argv[1] == "--gnp":
     f.close()
     plotter.plotCircleGraph(adj_list_prob,"Graf z P-krawedziami")    
 
-
-
-
+elif sys.argv[1]=="--help" and len(sys.argv)==2:
+    print("python zad3.py --gnl [n] [l]  przyklad python zad3.py --gnl 5 3\n"+
+          "               --gnp [n] [p]  przyklad python zad3.py --gnp 5 0.3\n"+
+          "n [int] - liczba wierzcholkow\n"+
+          "l [int] - liczba krawedzi do wygenerowania\n"+
+          "p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami")
+else:
+    print("Niepoprawna lista argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+    sys.exit(-1)

@@ -10,3 +10,6 @@ Zadanie 1
 Zadanie 3
     python zad3.py --gnl {n} {l}  przyklad python zad3.py --gnl 5 3
 		   --gnp {n} {p}  przyklad python zad3.py --gnp 5 0.3
+    n [int] - liczba wierzcholkow
+    l [int] - liczba krawedzi do wygenerowania
+    p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami
