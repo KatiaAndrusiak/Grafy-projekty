@@ -13,14 +13,14 @@ def plotCircleGraph(adjacencyList,title="Circle graph"):
     n = len(adjacencyList) # nodes
     diff_angle = 360 / n
     
-    for i, node in enumerate(adjacencyList):
+    for i in range(0, n):
         angle = diff_angle * i 
         x = -radius * cos(radians(angle))
         y = radius * sin(radians(angle))
         
         for j in adjacencyList[i]:
-            x2 = -radius * cos(radians(((j-1) / n * 360)))
-            y2 = radius * sin(radians(((j-1) / n * 360)))
+            x2 = -radius * cos(radians(((j-1) * diff_angle)))
+            y2 = radius * sin(radians(((j-1) * diff_angle)))
             ax.plot([x, x2], [y, y2], color = 'black')
 
         node = plt.Circle((x, y), 1.2, color = 'green')

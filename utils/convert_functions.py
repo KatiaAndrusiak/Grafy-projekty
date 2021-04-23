@@ -36,21 +36,22 @@ def convert_adj_matrix_to_inc_matrix(matrix):
                 current_edge += 1
     return inc_matrix
 
-def convert_adj_list_to_adj_matrix(list):
-    adj_matrix = [[0 for i in range(len(list))] for j in range(len(list))]
-    for i, row in enumerate(list):
+def convert_adj_list_to_adj_matrix(adj_list):
+    adj_matrix = [[0 for i in range(len(adj_list))] for j in range(len(adj_list))]
+    for i, row in enumerate(adj_list):
         for el in row: 
             adj_matrix[i][el-1] = 1
     return adj_matrix
 
-def convert_adj_list_to_inc_matrix(list):
-    copy_list = [row[:] for row in list]
+def convert_adj_list_to_inc_matrix(adj_list):
+    copy_list = [row[:] for row in adj_list]   
+    
     edges = 0
-    for row in list:
+    for row in adj_list:
         edges += len(row)
     edges = int(edges/2)
 
-    inc_matrix = [[0 for i in range(edges)] for j in range(len(list))]
+    inc_matrix = [[0 for i in range(edges)] for j in range(len(adj_list))]
     current_edge = 0
     for i, row in enumerate(copy_list):
         for el in row: 
@@ -62,18 +63,18 @@ def convert_adj_list_to_inc_matrix(list):
 
 def convert_inc_matrix_to_adj_matrix(matrix):
     n = len(matrix)
-    inc_matrix = [[0 for i in range(0, n)] for j in range(0, n)]
+    adj_matrix = [[0 for i in range(0, n)] for j in range(0, n)]
     for i in range(len(matrix[0])):
         start = False
         index = 0
         for j in range(0, n):
-            if matrix[j][i] == 1 and start == False:
+            if matrix[j][i] == 1 and not start:
                 start = True
                 index = j
-            elif matrix[j][i] == 1 and start == True:
-                inc_matrix[index][j] = 1
-                inc_matrix[j][index] = 1
-    return inc_matrix
+            elif matrix[j][i] == 1 and start:
+                adj_matrix[index][j] = 1
+                adj_matrix[j][index] = 1
+    return adj_matrix
 
 def convert_inc_matrix_to_adj_list(matrix):
     n = len(matrix)
@@ -82,10 +83,10 @@ def convert_inc_matrix_to_adj_list(matrix):
         start = False
         index = 0
         for j in range(0, n):
-            if matrix[j][i] == 1 and start == False:
+            if matrix[j][i] == 1 and not start:
                 start = True
                 index = j
-            elif matrix[j][i] == 1 and start == True:
+            elif matrix[j][i] == 1 and start:
                 adj_list[index].append(j + 1)
                 adj_list[j].append(index+1)
     return adj_list

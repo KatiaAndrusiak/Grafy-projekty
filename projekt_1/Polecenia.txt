@@ -3,7 +3,7 @@ pip install -r requirements.txt
 Aby uruchomić kod trzeba podać flagę oraz scieżkę do pliku, np:
 Zadanie 1
     python zad1-2.py --am ./nazwa_pliku
-    --am -  macierz sąsiedztwa (macierzA.txt)
+    --am -  macierz sąsiedztwa(musi sprawdzać założenia dla macierzy sąsiedztwa) (macierzA.txt)
     --al -  lista sąsiedztwa (listaA.txt)
     --im -  macierz incydencji (macierzI.txt)
 
