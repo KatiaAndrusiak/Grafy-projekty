@@ -9,7 +9,16 @@ adj_task_matrix = []
 adj_task_list = []
 inc_task_matrix = []
 
-if (sys.argv[1] == "--am"):
+
+if len(sys.argv) == 1:
+    sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad1-2.py --help'") 
+elif sys.argv[1] == "--help":
+    sys.exit("użycie: python zad1-2.py [<opcje>] <ścieżka do pliku> \n"
+        + "\t --am - macierz sąsiedztwa (musi sprawdzać założenia dla macierzy sąsiedztwa) \n"
+        + "\t --al - lista sąsiedztwa \n" 
+        + "\t --im - macierz incydencji"
+    ) 
+elif sys.argv[1] == "--am":
     adj_task_matrix = cf.read_matrix_from_file(sys.argv[2], adj_task_matrix)
     #AM
     pf.print_matrix(adj_task_matrix)
@@ -22,7 +31,7 @@ if (sys.argv[1] == "--am"):
     pf.print_matrix(inc_matrix, "Macierz incydencji")
     #plot
     plt.plotCircleGraph(adj_list)
-elif (sys.argv[1] == "--al"):
+elif sys.argv[1] == "--al":
     adj_task_list = cf.read_matrix_from_file(sys.argv[2], adj_task_list)
     #AL
     pf.print_adj_list(adj_task_list)
@@ -36,7 +45,7 @@ elif (sys.argv[1] == "--al"):
     pf.print_matrix(inc, "Macierz incydencji")
     #plot
     plt.plotCircleGraph(adj_task_list)
-elif (sys.argv[1] == '--im'):
+elif sys.argv[1] == '--im':
     inc_task_matrix = cf.read_matrix_from_file(sys.argv[2], inc_task_matrix)  
     #IM
     pf.print_matrix(inc_task_matrix, "Macierz incydencji")
@@ -50,7 +59,8 @@ elif (sys.argv[1] == '--im'):
     pf.print_adj_list(adjl)
     #plot
     plt.plotCircleGraph(adjl)
-
+else:
+    sys.exit("Brak polecenia. Zobacz 'python zad1-2.py --help'") 
 
 ##############################################################
 # (Zadanie 2) Wykresy generowane przy kazdym uruchomieniu zadania 1

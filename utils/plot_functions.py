@@ -27,5 +27,5 @@ def plotCircleGraph(adjacencyList,title="Circle graph"):
         ax.add_patch(node)
     plt.title(title)
     plt.axis('off')
-    plt.show(block=False)
+    plt.show()
 

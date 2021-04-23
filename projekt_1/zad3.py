@@ -35,36 +35,79 @@ def random_graph_with_edge_as_probability(n, p):
 
 
 
-while True:
-    n = int(input("Podaj liczbe wierzcholkow grafu: "))
-    if n>0:
-        break
-while True:
-    l = int(input("Podaj liczbe krawedzi do utworzenia: "))
+n=0;
+l=0;
+p=0.0;
+
+
+if len(sys.argv)==1 or len(sys.argv)>4:
+    print("Zla liczba argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+    sys.exit(-1)
+elif sys.argv[1] == "--gnl" and len(sys.argv)==4:
+    try:    
+        n= int(sys.argv[2])
+        l= int(sys.argv[3])
+    except Exception as e:
+        print(e)
+        sys.exit(-1)
+    if n<0:
+        print("liczba wierzcholkow musi byc nieujemna")
+        sys.exit(-1)
     if l > ((n*(n-1))/2):
-        print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+". Prosze wybrac mniejsza wartosc")
+        print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+".")
+        sys.exit(-1)
     elif l<0:
         print("Liczba krawedzi musi byc nieujemna")
-    else:
-        break
-while True :   
-    p = float(input("Podaj prawdopodobienstwo stworzenia krawedzi pomiedzy dwoma wierzcholkami[0.0-1.0]: "))
-    if p<=1 and p>=0:
-        break
+        sys.exit(-1)
+    adj_list_number = random_graph_with_number_of_edges(n, l)    
+    print("lista sasiedztwa grafu z L-krawedziami")
+    for i in adj_list_number:
+        for j in i:
+            print(j, end =" ")
+        print()
+    f = open("macierz_gnl.txt", "w")
+    for i in adj_list_number:
+        for j in i:
+            f.write(str(j) + " ")
+        f.write("\n")
+    f.close()
+    plotter.plotCircleGraph(adj_list_number,"Graf z L-krawedziami")
 
-adj_list_number = random_graph_with_number_of_edges(n, l)
-adj_list_prob = random_graph_with_edge_as_probability(n, p)
-
-print("lista sasiedztwa grafu z L-krawedziami")
-for i in adj_list_number:
-    print(i)
-
-print("\n\n")
-print("lista sasiedztwa grafu z P-krawedziami")
-for i in adj_list_prob:
-    print(i)
     
+elif sys.argv[1] == "--gnp" and len(sys.argv)==4:
+    try:
+        n=int(sys.argv[2])
+        p=float(sys.argv[3])
+    except Exception as e:
+        print(e)
+        sys.exit(-1)
+    if n<0:
+        print("liczba wierzcholkow musi byc nieujemna")
+        sys.exit(-1)
+    if p>1 or p<0:
+        print("Prawdopodobienstwo musi nalezec do zbioru <0.0,1.0>")
+        sys.exit(-1)
+    adj_list_prob = random_graph_with_edge_as_probability(n, p)
+    print("lista sasiedztwa grafu z P-krawedziami")
+    for i in adj_list_prob:
+        for j in i:
+            print(j, end =" ")
+        print()
 
+    f = open("macierz_gnp.txt", "w")
+    for i in adj_list_prob:
+        for j in i:
+            f.write(str(j) + " ")
+        f.write("\n")
+    f.close()
+    plotter.plotCircleGraph(adj_list_prob,"Graf z P-krawedziami")    
 
-plotter.plotCircleGraph(adj_list_prob,"Graf z P-krawedziami")
-plotter.plotCircleGraph(adj_list_number,"Graf z L-krawedziami")
+elif sys.argv[1]=="--help" and len(sys.argv)==2:
+    print("python zad3.py --gnl [n] [l]  przyklad python zad3.py --gnl 5 3\n"+
+          "               --gnp [n] [p]  przyklad python zad3.py --gnp 5 0.3\n"+
+          "n [int] - liczba wierzcholkow\n"+
+          "l [int] - liczba krawedzi do wygenerowania\n"+
+          "p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami")
+else:
+    print("Niepoprawna lista argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+    sys.exit(-1)
