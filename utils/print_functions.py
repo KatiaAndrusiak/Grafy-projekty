@@ -2,7 +2,11 @@ def print_matrix(matrix, msg = "Macierz sąsiedztwa"):
     print(msg)
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
-            print(matrix[i][j], end=" ")
+            if matrix[i][j] == 0 or matrix[i][j] == 1:
+                print(" " + str(matrix[i][j]), end=" ")
+            else:
+               print(matrix[i][j], end=" ") 
+            
         print()
     print()
 
