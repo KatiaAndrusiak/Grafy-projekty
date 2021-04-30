@@ -20,7 +20,7 @@ def draw_digraph(adj_matrix):
 
     position = nx.circular_layout(G)
     options = {
-        'connectionstyle' : 'arc3, rad = 0.1',
+        'connectionstyle' : 'arc3, rad = 0.15',
         'font_color' : '#ffffff',
         'node_color': 'green',
         'width': 0.75,
@@ -47,7 +47,7 @@ def draw_digraph_with_weights(n, weight_list):
 
     labels = nx.get_edge_attributes(G, "weight")
     nx.draw(G, pos = position,  **options)
-    nx.draw_networkx_edge_labels(G, pos = position, edge_labels=labels, label_pos=0.5)
+    nx.draw_networkx_edge_labels(G, pos = position, edge_labels=labels, label_pos=0.35)
     plt.show()
 
 def random_graph_with_edge_as_probability(n, p):    
