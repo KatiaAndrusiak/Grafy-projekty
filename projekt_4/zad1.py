@@ -30,13 +30,31 @@ def draw_digraph(adj_matrix):
     nx.draw(G, pos = position,  **options)
     plt.show()
 
+def draw_digraph_with_weights(n, weight_list):
+    G = nx.DiGraph()
+    for i in range(n):
+        G.add_node(i+1)
+    G.add_edges_from(weight_list)
+
+    position = nx.circular_layout(G)
+    options = {
+        'connectionstyle' : 'arc3, rad = 0.1',
+        'font_color' : '#ffffff',
+        'node_color': 'green',
+        'width': 0.75,
+        'with_labels': 1       
+    }
+
+    labels = nx.get_edge_attributes(G, "weight")
+    nx.draw(G, pos = position,  **options)
+    nx.draw_networkx_edge_labels(G, pos = position, edge_labels=labels, label_pos=0.5)
+    plt.show()
 
 def random_graph_with_edge_as_probability(n, p):    
     adj_list = [[] for q in range(n)]
     for v1 in range(1,n+1):
         for v2 in range(1,n+1):
             rand = random()
-            print(rand)
             if rand <= p and v1 != v2:
                 adj_list[v1-1].append(v2)
     return adj_list
@@ -72,5 +90,4 @@ if __name__ == '__main__':
         pf.print_matrix(inc_matrix, "Macierz incydencji")
         draw_digraph(adj_matrix)
     else:
-        sys.exit("Brak polecenia. Zobacz 'python zad1.py --help'") 
-
+        sys.exit("Brak polecenia. Zobacz 'python zad1.py --help'")
