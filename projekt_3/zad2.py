@@ -40,7 +40,7 @@ def dijkstra(w, s):
 
 def print_dijkstra_solution(d_s, p_s, s):
     print(f'START: s = {s+1}\n')
-    for i in range(len(d)):
+    for i in range(len(d_s)):
         j = int(i)
         path = []
         while j is not None and j >= 0:

@@ -47,7 +47,7 @@ def draw_digraph_with_weights(n, weight_list):
 
     labels = nx.get_edge_attributes(G, "weight")
     nx.draw(G, pos = position,  **options)
-    nx.draw_networkx_edge_labels(G, pos = position, edge_labels=labels, label_pos=0.35)
+    nx.draw_networkx_edge_labels(G, pos = position, edge_labels=labels, label_pos=0.65)
     plt.show()
 
 def random_graph_with_edge_as_probability(n, p):    
