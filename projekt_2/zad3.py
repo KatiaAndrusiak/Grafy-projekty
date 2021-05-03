@@ -37,20 +37,49 @@ def print_result(components):
     print(f"Biggest component: {max(res, key = lambda k : len(res.get(k)))}")
  
 
-        
+adj_task_matrix = []
+adj_task_list = []
+inc_task_matrix = []
 
-adjList1 = [[6, 7, 3, 8],[6],[1],[],[8],[1, 2],[1],[5, 1]]
-#adjList2 = [[8],[3],[2],[],[],[8],[],[1, 6]]
-adj_matrix = []
-adj_matrix = cf.read_matrix_from_file('macierz_zad3.txt', adj_matrix)
-adjList2 = cf.convert_adj_matrix_to_adj_list(adj_matrix)
+    
+if len(sys.argv) == 1:
+    sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad3.py --help'") 
+elif sys.argv[1] == "--help":
+    sys.exit("użycie: python zad3.py [<opcje>] <ścieżka do pliku> \n"
+        + "\t --am - macierz sąsiedztwa (musi sprawdzać założenia dla macierzy sąsiedztwa) \n"
+        + "\t --al - lista sąsiedztwa \n" 
+        + "\t --im - macierz incydencji"
+    ) 
+elif sys.argv[1] == "--am":
+    
+    adj_task_matrix = cf.read_matrix_from_file(sys.argv[2], adj_task_matrix)
+    #AM
+    pf.print_matrix(adj_task_matrix)
+    
+    #AM -> AL
+    adjList = cf.convert_adj_matrix_to_adj_list(adj_task_matrix)
+    
+    nodeList = {int(i + 1): adjList[i][:] for i in range(len(adjList))}
+    print_result(components(nodeList))
 
-nodeList1 = {int(i + 1): adjList1[i][:] for i in range(len(adjList1))}
-nodeList2 = {int(i + 1): adjList2[i][:] for i in range(len(adjList2))}
+elif sys.argv[1] == "--al":
+    adj_task_list = cf.read_matrix_from_file(sys.argv[2], adj_task_list)
+    #AL
+    pf.print_adj_list(adj_task_list)
+    
+    nodeList = {int(i + 1): adj_task_list[i][:] for i in range(len(adj_task_list))}
+    print_result(components(nodeList))
+    
+elif sys.argv[1] == '--im':
+    inc_task_matrix = cf.read_matrix_from_file(sys.argv[2], inc_task_matrix)  
+    #IM
+    pf.print_matrix(inc_task_matrix, "Macierz incydencji")
 
-print("Sample 1:")
-print_result(components(nodeList1))
-print("Sample 2:")
-print(nodeList2)
-print_result(components(nodeList2))
-plt.plotCircleGraph(adjList2)
+    #IM -> AL
+    adjList = cf.convert_inc_matrix_to_adj_list(inc_task_matrix)
+    
+    nodeList = {int(i + 1): adjList[i][:] for i in range(len(adjList))}
+    print_result(components(nodeList))
+else:
+    sys.exit("Brak polecenia. Zobacz 'python zad3.py --help'")
+    
