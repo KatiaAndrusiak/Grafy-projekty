@@ -1,0 +1,7 @@
+Zad1:
+    python zad1.py --nl {n} {l}  przyklad python zad1.py --gnl 5 3
+
+    n [int] - liczba wierzcholkow
+    l [int] - liczba krawedzi do wygenerowania
+Zad4:
+python zad4.py ./matrix_zad2.txt
