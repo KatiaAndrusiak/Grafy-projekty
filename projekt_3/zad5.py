@@ -1,6 +1,7 @@
 import sys
 import os.path
 import random
+from math import inf
 from collections import defaultdict
 import matplotlib.pyplot as pyp
 
@@ -35,14 +36,12 @@ def prima(W):
     edge_weight = defaultdict(list)
     n = len(W)
     res_matrix = [[0 for i in range(0, n)] for j in range(0, n)]
-    inf = float('inf')
     
     for weights in W:
         assert len(weights) == n
 
     free_vertexes = list(range(0, n))
 
-    #startowy wierzchołek
     starting_vertex = random.choice(free_vertexes)
     T = [starting_vertex]
     free_vertexes.remove(starting_vertex)
@@ -51,12 +50,13 @@ def prima(W):
 
     road_length = 0
 
+    
     while free_vertexes:
         min_link = None  
         overall_min_path = inf  
 
         for current_vertex in T:
-            weights = W[current_vertex]  
+            weights = W[current_vertex] 
 
             min_path = inf
             free_vertex_min = current_vertex
@@ -104,8 +104,6 @@ if __name__ == '__main__':
     ion()
     matrix = []
     matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
-    print(convert_weight_adj_matrix_to_adj_list(matrix))
-    print(create_weight_edge_from_matrix(matrix))
     res_matrix = prima(matrix)
 
     n = len(matrix)
@@ -115,7 +113,7 @@ if __name__ == '__main__':
     input('press <ENTER> to continue')
     pyp.figure(2)
     plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
-    input('press <ENTER> to continue')
+    input('press <ENTER> to finish')
 
 # Aby uruchomić kod trzeba podać scieżkę do pliku, np:
 # python zad5.py ./nazwa_pliku

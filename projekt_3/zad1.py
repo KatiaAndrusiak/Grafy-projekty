@@ -78,36 +78,38 @@ def generate_connected_weigted_graph(n, l):
         
     return adjList, weight_edges
 
-if len(sys.argv)==1 or len(sys.argv)>4:
-    print("Zla liczba argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
-    sys.exit(-1)
-elif sys.argv[1] == "--nl" and len(sys.argv)==4:
-    try:    
-        n= int(sys.argv[2])
-        l= int(sys.argv[3])
-    except Exception as e:
-        print(e)
-        sys.exit(-1)
-    if n<2:
-        print("Liczba wierzchołków nie może być mniejsza niż 2!")
-        sys.exit(-1)
-    if l > ((n*(n-1))/2):
-        print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+".")
-        sys.exit(-1)
-    elif l<1:
-        print("Liczba krawedzi nie moze byc mniejsza od 1")
-        sys.exit(-1)
-    adjListT, weight_edgesT = generate_connected_weigted_graph(n, l)
-    draw_graph_with_weight(adjListT, weight_edgesT, n)
 
- 
+if __name__ == '__main__':
+    if len(sys.argv)==1 or len(sys.argv)>4:
+        print("Zla liczba argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+        sys.exit(-1)
+    elif sys.argv[1] == "--nl" and len(sys.argv)==4:
+        try:    
+            n= int(sys.argv[2])
+            l= int(sys.argv[3])
+        except Exception as e:
+            print(e)
+            sys.exit(-1)
+        if n<2:
+            print("Liczba wierzchołków nie może być mniejsza niż 2!")
+            sys.exit(-1)
+        if l > ((n*(n-1))/2):
+            print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+".")
+            sys.exit(-1)
+        elif l<1:
+            print("Liczba krawedzi nie moze byc mniejsza od 1")
+            sys.exit(-1)
+        adjListT, weight_edgesT = generate_connected_weigted_graph(n, l)
+        draw_graph_with_weight(adjListT, weight_edgesT, n)
 
-elif sys.argv[1]=="--help" and len(sys.argv)==2:
-    print("python zad1.py --nl [n] [l]  przyklad python zad1.py --nl 9 8\n"+
-          "n [int] - liczba wierzcholkow\n"+
-          "l [int] - liczba krawedzi do wygenerowania\n"
-          )
-else:
-    print("Niepoprawna lista argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
-    sys.exit(-1)
     
+
+    elif sys.argv[1]=="--help" and len(sys.argv)==2:
+        print("python zad1.py --nl [n] [l]  przyklad python zad1.py --nl 9 8\n"+
+            "n [int] - liczba wierzcholkow\n"+
+            "l [int] - liczba krawedzi do wygenerowania\n"
+            )
+    else:
+        print("Niepoprawna lista argumetow. Aby dowiedziec sie wiecej skorzystaj z flagi --help")
+        sys.exit(-1)
+        

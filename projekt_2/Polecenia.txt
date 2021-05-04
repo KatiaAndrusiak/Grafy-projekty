@@ -9,3 +9,6 @@ Zadanie 3
     --am -  macierz sąsiedztwa(musi sprawdzać założenia dla macierzy sąsiedztwa) (macierz_zad3.txt)
     --al -  lista sąsiedztwa (listaA.txt)
     --im -  macierz incydencji (macierzI.txt)
+
+Zadanie 6
+    python zad6.py ./nazwa_pliku
