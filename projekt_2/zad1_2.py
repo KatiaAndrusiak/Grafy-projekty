@@ -101,26 +101,28 @@ def randomize_edges(am: List[List[int]], n):
 
 
 if __name__ == '__main__':
-    degree_sequence = []
-    degree_sequence = read_list_from_file(sys.argv[1], degree_sequence)
-
-    degree_sequence = list(map(int, degree_sequence))
-
-    if degree_sequence_check(degree_sequence):
-        print("\nCiąg jest graficzny")
-        adjacency_matrix: List[List[int]] = convert_ds_to_am(degree_sequence)
-        pf.print_matrix(adjacency_matrix)
-
-        rand_mat = randomize_edges(adjacency_matrix, 100)
-
-        rand_list = cf.convert_adj_matrix_to_adj_list(rand_mat)
-        pf.print_matrix(rand_mat)
-        pf.print_adj_list(rand_list)
-        plot.plotCircleGraph(rand_list)
-
+    if len(sys.argv) == 1 or len(sys.argv) > 2:
+        sys.exit("Aby uruchomić kod trzeba podać nazwę pliku: \n \t python zad1_2.py ./nazwa_pliku")
     else:
-        print("\nCiąg nie jest graficzny")
+        degree_sequence = []
+        degree_sequence = read_list_from_file(sys.argv[1], degree_sequence)
+
+        degree_sequence = list(map(int, degree_sequence))
+
+        if degree_sequence_check(degree_sequence):
+            print("\nCiąg jest graficzny")
+            adjacency_matrix: List[List[int]] = convert_ds_to_am(degree_sequence)
+            pf.print_matrix(adjacency_matrix)
+
+            rand_mat = randomize_edges(adjacency_matrix, 100)
+
+            rand_list = cf.convert_adj_matrix_to_adj_list(rand_mat)
+            pf.print_matrix(rand_mat)
+            pf.print_adj_list(rand_list)
+            plot.plotCircleGraph(rand_list)
+
+        else:
+            print("\nCiąg nie jest graficzny")
 
 
-# Aby uruchomić kod trzeba podać nazwę pliku, np:
-# python zad1_2.py ./nazwa_pliku
+

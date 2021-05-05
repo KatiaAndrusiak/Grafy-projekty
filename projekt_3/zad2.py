@@ -1,8 +1,18 @@
 import sys
-
 import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils import convert_functions as cf
+
+def matrix_is_symmetric(matrix):
+    for i in range(len(matrix)):
+        if len(matrix) != len(matrix[i]):
+            return False
+        for j in range(i, len(matrix[0])):
+            if i == j and matrix[i][j] != 0:
+                return False
+            if matrix[i][j] != matrix[j][i]:
+                return False
+    return True
 
 
 def init(n, s, d_s, p_s):
@@ -20,8 +30,8 @@ def relax(u, v, w, d_s, p_s):
 
 def dijkstra(w, s):
     n = len(w)
-    d_s = [0]*n
-    p_s = [0]*n
+    d_s = [0] * n
+    p_s = [0] * n
     init(w, s, d_s, p_s)
     not_ready = [i for i in range(n)]
 
@@ -39,7 +49,7 @@ def dijkstra(w, s):
 
 
 def print_dijkstra_solution(d_s, p_s, s):
-    print(f'START: s = {s+1}\n')
+    print(f'START: s = {s + 1}\n')
     for i in range(len(d_s)):
         j = int(i)
         path = []
@@ -47,15 +57,21 @@ def print_dijkstra_solution(d_s, p_s, s):
             path.append(j + 1)
             j = p_s[j]
         path.reverse()
-        print(f'd({i+1}) = {d_s[i]} ==> [{" - ".join(map(str, path))}]\n')
+        print(f'd({i + 1}) = {d_s[i]} ==> [{" - ".join(map(str, path))}]\n')
 
 
 if __name__ == '__main__':
-    w_matrix = []
-    w_matrix = cf.read_matrix_from_file(sys.argv[1], w_matrix)
-    start = 0
-    d, p = dijkstra(w_matrix, start)
-    print_dijkstra_solution(d, p, start)
+    if len(sys.argv) == 1 or len(sys.argv) > 2:
+        sys.exit("\nAby uruchomić kod trzeba podać nazwę pliku (z macierzą sąsiedstwa): \n "
+                 "\t python zad2.py ./nazwa_pliku")
+    else:
+        w_matrix = []
+        w_matrix = cf.read_matrix_from_file(sys.argv[1], w_matrix)
+        if not matrix_is_symmetric(w_matrix):
+            sys.exit("\nPodana macierz nie spełnia założenia dla macierzy sąsiedstwa")
+        else:
+            start = 0
+            d, p = dijkstra(w_matrix, start)
+            print_dijkstra_solution(d, p, start)
 
-# Aby uruchomić kod trzeba podać nazwę pliku, np:
-# python zad2.py ./nazwa_pliku
+
