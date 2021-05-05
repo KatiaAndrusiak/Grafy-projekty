@@ -6,7 +6,7 @@ from projekt_3.zad2 import dijkstra
 from projekt_3.zad3 import distance_matrix
 
 
-def zad4_sol(distanceMatrix):
+def minimaxAndCenter(distanceMatrix):
     sums = list(map(sum, distanceMatrix))
     centrum = sums.index(min(sums))
     maximum = list(map(max, distanceMatrix))
@@ -15,17 +15,20 @@ def zad4_sol(distanceMatrix):
     return centrum, minimax
 
 
+if(len(sys.argv))!= 2:
+        print("Zla liczba parametrow. Zajrzyj do pliku Polecenia.txt po wiecej informacji")
+        sys.exit(-1)
+
 dist_matrix=[[]]
 dist_matrix=distance_matrix()
 
 
 for k in range(len(dist_matrix[0])):
-	print(f'odleglosci z nr: {k}')
+	print(f'odleglosci z nr: {k + 1}')
 	print(dist_matrix[k])
 	
 
-result = zad4_sol(dist_matrix)
-print(f'centrum grafu: {result[0]}, minimax: {result[1]}')
+result = minimaxAndCenter(dist_matrix)
+print(f'centrum grafu: {result[0] + 1}, minimax: {result[1] + 1}')
 
-# Aby uruchomić kod trzeba podać nazwę pliku jako prametr wywolania, np:
-# python zad4.py ./matrix_zad2.txt
+

@@ -20,6 +20,7 @@ def draw_graph_with_weight(adjList, weight_edges, n):
     G = nx.Graph()
     for i, item in enumerate(positions):
         G.add_node(i + 1, pos=item)
+        
     G.add_edges_from(weight_edges)
     labels = nx.get_edge_attributes(G, 'weight')
     nx.draw(G, pos=positions)
@@ -45,7 +46,6 @@ def rand_graph_with_weight(n, l):
 
 
 def is_connected(myList):
-    print(myList)
     return all(x==myList[0] for x in myList)
     
 
