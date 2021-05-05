@@ -51,9 +51,6 @@ def generateEulerGraph(n=10, start=1):
         vertice_deg = [random.choice(even) for i in range(1, n + 1)]
 
     adj_matrix = convert_ds_to_am(vertice_deg)
-    for adj in adj_matrix:
-        print(adj)
-    print()
 
     adj_list=convert_adj_matrix_to_adj_list(adj_matrix)
     adj_list_print=copy.deepcopy(adj_list)
@@ -62,16 +59,13 @@ def generateEulerGraph(n=10, start=1):
     #wybranie poczatkowego wezla w ktorym jest jak najwiecej polaczen, pomoze uniknac klopotliwych sytuacji
     currentNode = start
     eulerCycleList = [currentNode]
-    print("Wierzcholek startowy: "+str(currentNode))
     while True:
         currentNode=NextNode(adj_list, currentNode)
         
         if currentNode != 2222:
             eulerCycleList.append(currentNode)
-            print("Elementy cyklu:")
-            print(eulerCycleList)
-            print("--------")
         else:
+            print()
             print("Cykl Eulera:\n")
             print(eulerCycleList)
             plotter.plotCircleGraph(adj_list_print)
