@@ -6,7 +6,7 @@ from random import randint, random
 import networkx as nx
 import matplotlib.pyplot as plt
 from math import cos, sin, pi
-
+from projekt_2.zad3 import components, components_R
 
 def draw_graph_with_weight(adjList, weight_edges, n):
     radius = 10
@@ -26,28 +26,8 @@ def draw_graph_with_weight(adjList, weight_edges, n):
     nx.draw_networkx_labels(G, pos=positions)
     nx.draw_networkx_edge_labels(G, pos=positions, edge_labels=labels, font_color='red')
     plt.show()
-       
-def components(nodeList):
-    nr = 0  # numer spojnej skladowej
-    comp = []
-    for i in nodeList:
-        comp.append(-1)  
-
-    for i in nodeList:
-        if comp[i - 1] == -1:
-            nr += 1
-            comp[i - 1] = nr 
-            components_R(nr, i, nodeList, comp)  
-    return comp
-
-
-def components_R(nr, v, nodeList, comp):
-    for i in nodeList[v]:
-        if comp[i - 1] == -1:
-            comp[i - 1] = nr
-            components_R(nr, i, nodeList, comp)
-            
-def rand_graph_edge_number_weight(n, l):  
+                   
+def rand_graph_with_weight(n, l):  
     adj_list = [[] for q in range(n)]
     pairs = []
     counter = 0
@@ -65,15 +45,16 @@ def rand_graph_edge_number_weight(n, l):
 
 
 def is_connected(myList):
+    print(myList)
     return all(x==myList[0] for x in myList)
     
 
 #n wierzcholki, l krawedzie
 def generate_connected_weigted_graph(n, l):
-    adjList, weight_edges = rand_graph_edge_number_weight(n, l)
+    adjList, weight_edges = rand_graph_with_weight(n, l)
     isCon = is_connected(components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
     while(isCon == False):
-        adjList, weight_edges = rand_graph_edge_number_weight(n, l)
+        adjList, weight_edges = rand_graph_with_weight(n, l)
         isCon = is_connected(components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
         
     return adjList, weight_edges
@@ -85,8 +66,8 @@ if __name__ == '__main__':
         sys.exit(-1)
     elif sys.argv[1] == "--nl" and len(sys.argv)==4:
         try:    
-            n= int(sys.argv[2])
-            l= int(sys.argv[3])
+            n = int(sys.argv[2])
+            l = int(sys.argv[3])
         except Exception as e:
             print(e)
             sys.exit(-1)
@@ -96,8 +77,8 @@ if __name__ == '__main__':
         if l > ((n*(n-1))/2):
             print("Maksymalna liczba krawedzi dla zadanej liczby wierzcholkow to "+str(int(((n*(n-1))/2)))+".")
             sys.exit(-1)
-        elif l<1:
-            print("Liczba krawedzi nie moze byc mniejsza od 1")
+        elif l<n-1:
+            print("Liczba krawedzi nie moze byc mniejsza od liczby wiercholkow - 1 ")
             sys.exit(-1)
         adjListT, weight_edgesT = generate_connected_weigted_graph(n, l)
         draw_graph_with_weight(adjListT, weight_edgesT, n)
