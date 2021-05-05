@@ -13,8 +13,7 @@ def check_if_hamilton(matrix, start_vertex, visited, cycle, length):
     #sprawdzamy, czy pierwszy i ostatni wierzchołek są sąsiadami
     #jeśli tak, to dodajemy pierwszy wierzchołek do listy jeszcze raz i kończymy algorytm
     #w inym przypadku usuwamy element z listy i zwracamy false (nie znaleziono cyklu)
-    cycle.append(start_vertex)
-    print(cycle)    
+    cycle.append(start_vertex)   
     if len(cycle) == length:   
         if matrix[cycle[0]][cycle[-1]] == 1:
             cycle.append(cycle[0])
@@ -40,36 +39,43 @@ def check_if_hamilton(matrix, start_vertex, visited, cycle, length):
 
 
 if __name__ == '__main__':
-    matrix = []
-    matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
-    adj_list = cf.convert_adj_matrix_to_adj_list(matrix)
-    n = len(matrix)
-    visited = [False] * n
-    cycle_path = []
-    isConnectivity = True
+    if len(sys.argv) == 1:
+        sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad6.py --help'")
+    elif sys.argv[1] == "--help":
+        sys.exit("użycie: python zad6.py <ścieżka do pliku>  (plik - macierz sąsiedztwa)\n")
+    elif len(sys.argv) == 2:
+        matrix = []
+        matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
+        adj_list = cf.convert_adj_matrix_to_adj_list(matrix)
+        n = len(matrix)
+        visited = [False] * n
+        cycle_path = []
+        isConnectivity = True
 
-    for i, row in enumerate(matrix):
-        if sum(row) == 0:
-            isConnectivity = False
-            break
+        for i, row in enumerate(matrix):
+            if sum(row) == 0:
+                isConnectivity = False
+                break
 
-    if not isConnectivity:
-        plt.plotCircleGraph(adj_list)
-        sys.exit("Wybrany graf nie jest spójnym, wybierz inny graf!")
-    elif n > 20 and isConnectivity:
-        plt.plotCircleGraph(adj_list)
-        sys.exit("Wybrany graf jest zbyt duży, wybierz inny graf!")
+        if not isConnectivity:
+            sys.exit("Wybrany graf nie jest spójnym, wybierz inny graf!")
+            plt.plotCircleGraph(adj_list)
+        elif n > 20 and isConnectivity:
+            sys.exit("Wybrany graf jest zbyt duży, wybierz inny graf!")
+            plt.plotCircleGraph(adj_list)
 
-    for vertex in range(n):
-        if check_if_hamilton(matrix, vertex, visited, cycle_path, n):
-            break
+        for vertex in range(n):
+            if check_if_hamilton(matrix, vertex, visited, cycle_path, n):
+                break
 
-    if len(cycle_path) == 0:
-        print("Nie udało się znaleźć cyklu Hamiltona, graf nie jest hamiltonowski")
-        plt.plotCircleGraph(adj_list)
+        if len(cycle_path) == 0:
+            print("Nie udało się znaleźć cyklu Hamiltona, graf nie jest hamiltonowski")
+            plt.plotCircleGraph(adj_list)
+        else:
+            pf.print_hamiltonian_cycle(cycle_path)
+            plt.plotCircleGraph(adj_list)
     else:
-        pf.print_hamiltonian_cycle(cycle_path)
-        plt.plotCircleGraph(adj_list)
+        sys.exit("Nieprawidlowe polecenie. Zobacz 'python zad6.py --help'") 
         
 
 

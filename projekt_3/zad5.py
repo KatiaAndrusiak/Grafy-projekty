@@ -101,19 +101,26 @@ def prima(W):
 
 
 if __name__ == '__main__':
-    ion()
-    matrix = []
-    matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
-    res_matrix = prima(matrix)
+    if len(sys.argv) == 1:
+        sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad5.py --help'")
+    elif sys.argv[1] == "--help":
+        sys.exit("użycie: python zad5.py <ścieżka do pliku>  (plik - macierz sąsiedztwa z wagami)\n")
+    elif len(sys.argv) == 2:
+        ion()
+        matrix = []
+        matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
+        res_matrix = prima(matrix)
 
-    n = len(matrix)
+        n = len(matrix)
 
-    pyp.figure(1)
-    plt(convert_weight_adj_matrix_to_adj_list(matrix), create_weight_edge_from_matrix(matrix), n)
-    input('press <ENTER> to continue')
-    pyp.figure(2)
-    plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
-    input('press <ENTER> to finish')
+        pyp.figure(1)
+        plt(convert_weight_adj_matrix_to_adj_list(matrix), create_weight_edge_from_matrix(matrix), n)
+        input('press <ENTER> to continue')
+        pyp.figure(2)
+        plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
+        input('press <ENTER> to finish')
+    else:
+        sys.exit("Nieprawidlowe polecenie. Zobacz 'python zad5.py --help'") 
 
 # Aby uruchomić kod trzeba podać scieżkę do pliku, np:
 # python zad5.py ./nazwa_pliku
