@@ -7,7 +7,7 @@ from utils.plot_functions import plotCircleGraph
 
 def random_k_regular_graph(n=7,k=2):
     if n<0 or k<0:
-        print("Paramtery wywoalania musza byc nieujemne")
+        print("Paramtery wywolania musza byc nieujemne")
         sys.exit(-1)
     if (n*k)%2!=0:
         print("Iloczyn liczby wierzcholkow i stopnia wierzcholkow musi byc parzysty")
@@ -48,9 +48,7 @@ def random_k_regular_graph(n=7,k=2):
 
         it = it + 1
         if it >= 100:
-            print("""-------------------------------------------------------------------------------------\n
------------------------nie udalo sie, ponowne losowanie grafu-------------------------\n
---------------------------------------------------------------------------------------""")
+            print("nie udalo sie, ponowne losowanie grafu")
             adj_list.clear()
             temp_adj_list=[[] for i in range(n)]
             adj_list=temp_adj_list

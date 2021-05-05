@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils import convert_functions as cf
 from projekt_3.zad2 import dijkstra
 
-#trzeba pamietac o dodawaniu sciezki do pliku z macierza podczas uruchamiania programu
+
 def distance_matrix():
 	input_matrix = []
 	input_matrix = cf.read_matrix_from_file(sys.argv[1], input_matrix)
@@ -17,11 +17,18 @@ def distance_matrix():
 
 	return dist_matrix;
 
-dist_matrix=[[]]
-dist_matrix=distance_matrix()
-for k in range(len(dist_matrix[0])):
-	print(dist_matrix[k])
-	print()
+def print_distance_matrix():
+        dist_matrix=[[]]
+        dist_matrix=distance_matrix()
+        txt=""
+        for k in range(len(dist_matrix)):
+                for q in range(len(dist_matrix[k])):
+                        txt= txt+str(dist_matrix[k][q])+" "
+                txt+="\n"
+        print(txt)
 
-# Aby uruchomić kod trzeba podać nazwę pliku jako prametr wywolania, np:
-# python zad3.py ./matrix_zad2.txt
+if(len(sys.argv))!= 2:
+        print("Zla liczba parametrow. Zajrzyj do pliku Polecenia.txt po wiecej informacji")
+        sys.exit(-1)
+
+print_distance_matrix()
