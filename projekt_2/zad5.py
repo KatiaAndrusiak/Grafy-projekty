@@ -6,6 +6,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.plot_functions import plotCircleGraph
 
 def random_k_regular_graph(n=7,k=2):
+    if n<0 or k<0:
+        print("Paramtery wywoalania musza byc nieujemne")
+        sys.exit(-1)
+    if (n*k)%2!=0:
+        print("Iloczyn liczby wierzcholkow i stopnia wierzcholkow musi byc parzysty")
+        sys.exit(-1)
     
     adj_list = [[] for i in range(n)]
     
@@ -14,25 +20,32 @@ def random_k_regular_graph(n=7,k=2):
     degree = [k for i in range(n)]
     it = 0
     while True:
+        #losujemy dwa rozne wierzcholki
         v1, v2 = randint(1, n), randint(1, n)
         while v1 == v2:
             v2 = randint(1, n)
         if sum(degree) == 4 and max(degree) == 2:
             T=sorted(degree, reverse = True)
-            
+
+            #na przyklad A=[2,1,1,0,0,0,0]
             if T[1] == 1:
-                v1 = degree.index(max(degree)) + 1
-                v2 = degree.index(1) + 1
+                v1 = degree.index(max(degree)) + 1 #A[0]
+                v2 = degree.index(1) + 1 #A[1]
                 fill_graph_and_reduce_k(v1, v2, adj_list, degree)
-                
-                v1 = degree.index(1) + 1
-                v2 = degree.index(1, v1) + 1
+
+                #teraz A=[1,0,1,0,0,0,0]
+                v1 = degree.index(1) + 1 #A[0]
+                v2 = degree.index(1, v1) + 1 #A[2]
                 fill_graph_and_reduce_k(v1, v2, adj_list, degree)
+
                 
         if v1 not in adj_list[v2-1] and v2 not in adj_list[v1-1] and degree[v1-1] > 0 and degree[v2-1] > 0:
             fill_graph_and_reduce_k(v1, v2, adj_list, degree)
+
+            
         if sum(degree) == 0:
             break
+
         it = it + 1
         if it >= 100:
             print("""-------------------------------------------------------------------------------------\n
@@ -45,8 +58,7 @@ def random_k_regular_graph(n=7,k=2):
             degree=temp_degree
             it=0
 
-    print(adj_list)
-    plotCircleGraph(adj_list,"Losowy graf k-regularny")
+    
     return adj_list
 
 
@@ -56,7 +68,17 @@ def fill_graph_and_reduce_k(v1, v2, adj_list, degree):
     degree[v1-1] = degree[v1-1] - 1
     degree[v2-1] = degree[v2-1] - 1
 
-n = int(input("Podaj liczbę wierzcholkow: "))
-k = int(input("Podaj stopień wierzcholkow: "))
 
-random_k_regular_graph(n,k)
+if(len(sys.argv)!=3):
+    print("nieprawidlowa liczba parametrow")
+    sys.exit(-1)
+    
+try:
+    n = int(sys.argv[1])
+    k = int(sys.argv[2])
+except:
+    print("Podano niepoprawne dane")
+    sys.exit(-1)
+    
+adj_list=random_k_regular_graph(n,k)
+plotCircleGraph(adj_list,"Losowy graf k-regularny")
