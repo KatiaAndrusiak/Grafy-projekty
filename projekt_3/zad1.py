@@ -6,7 +6,7 @@ from random import randint, random
 import networkx as nx
 import matplotlib.pyplot as plt
 from math import cos, sin, pi
-from projekt_2.zad3 import components, components_R
+from utils import components_functions as cof
 
 def draw_graph_with_weight(adjList, weight_edges, n):
     radius = 10
@@ -52,10 +52,10 @@ def is_connected(myList):
 #n wierzcholki, l krawedzie
 def generate_connected_weigted_graph(n, l):
     adjList, weight_edges = rand_graph_with_weight(n, l)
-    isCon = is_connected(components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
+    isCon = is_connected(cof.components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
     while(isCon == False):
         adjList, weight_edges = rand_graph_with_weight(n, l)
-        isCon = is_connected(components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
+        isCon = is_connected(cof.components({int(i + 1): adjList[i][:] for i in range(len(adjList))}))
         
     return adjList, weight_edges
 
