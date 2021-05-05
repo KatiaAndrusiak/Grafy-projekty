@@ -10,5 +10,17 @@ Zadanie 3
     --al -  lista sąsiedztwa (listaA.txt)
     --im -  macierz incydencji (macierzI.txt)
 
+Zadanie 4
+    python zad4.py [n] [start]    np. python zad4.py 5 2
+    
+    [n] - liczba wierzcholkow grafu
+    [start] - numer wierzcholka z ktorego chcemy rozpoczac
+
+Zadanie 5
+   python zad5.py [n] [k]    np. python zad5.py 7 2 
+   
+   n[int] - liczba wierzchołków grafy k-regularnego
+   k[int] - stopień każdego z wierzchołków
+
 Zadanie 6
     python zad6.py ./nazwa_pliku
