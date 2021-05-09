@@ -8,7 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from projekt_2.zad1_2 import degree_sequence_check 
 from projekt_2.zad1_2 import convert_ds_to_am
 from utils.convert_functions import convert_adj_matrix_to_adj_list
-from projekt_2.zad3 import components
+from utils.components_functions import components
 from utils import plot_functions as plotter
 
 def NextNode(adj_list, currentNode):
@@ -16,7 +16,7 @@ def NextNode(adj_list, currentNode):
     
     #jesli nasz wierzcholek nie ma juz nieodwiedzonych krawedzi, konczymy cykl Eulera
     if len(adj_list[currentNode-1]) == 0:
-        return 2222
+        return None
 
     neighbourList = copy.deepcopy(adj_list[currentNode-1])
     
@@ -62,11 +62,11 @@ def generateEulerGraph(n=10, start=1):
     while True:
         currentNode=NextNode(adj_list, currentNode)
         
-        if currentNode != 2222:
+        if currentNode != None:
             eulerCycleList.append(currentNode)
         else:
             print()
-            print("Cykl Eulera:\n")
+            print("Cykl Eulera:")
             print(eulerCycleList)
             plotter.plotCircleGraph(adj_list_print)
             break

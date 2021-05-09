@@ -47,8 +47,8 @@ def random_k_regular_graph(n=7,k=2):
             break
 
         it = it + 1
-        if it >= 100:
-            print("nie udalo sie, ponowne losowanie grafu")
+        if it >= 1000:
+            #nie udalo sie, ponowne losowanie grafu
             adj_list.clear()
             temp_adj_list=[[] for i in range(n)]
             adj_list=temp_adj_list
