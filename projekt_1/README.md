@@ -1,5 +1,5 @@
 # Przed pierwszym uruchomieniem:
-	### pip install -r requirements.txt
+	pip install -r requirements.txt
 należy wykonać z poziomu wyżej (korzenia drzewa plików paczki).
 
 # Aby uruchomić kod trzeba podać flagę oraz scieżkę do pliku, np:
