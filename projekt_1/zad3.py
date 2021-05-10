@@ -3,6 +3,7 @@ import os, os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from utils import plot_functions as plotter
+from utils import print_functions as pf
 from random import randint, random
 
 
@@ -60,11 +61,7 @@ elif sys.argv[1] == "--gnl" and len(sys.argv)==4:
         print("Liczba krawedzi musi byc nieujemna")
         sys.exit(-1)
     adj_list_number = random_graph_with_number_of_edges(n, l)    
-    print("lista sasiedztwa grafu z L-krawedziami")
-    for i in adj_list_number:
-        for j in i:
-            print(j, end =" ")
-        print()
+    pf.print_adj_list(adj_list_number, "lista sasiedztwa grafu z L-krawedziami")
     f = open("macierz_gnl.txt", "w")
     for i in adj_list_number:
         for j in i:
@@ -88,11 +85,7 @@ elif sys.argv[1] == "--gnp" and len(sys.argv)==4:
         print("Prawdopodobienstwo musi nalezec do zbioru <0.0,1.0>")
         sys.exit(-1)
     adj_list_prob = random_graph_with_edge_as_probability(n, p)
-    print("lista sasiedztwa grafu z P-krawedziami")
-    for i in adj_list_prob:
-        for j in i:
-            print(j, end =" ")
-        print()
+    pf.print_adj_list(adj_list_prob, "lista sasiedztwa grafu z P-krawedziami")
 
     f = open("macierz_gnp.txt", "w")
     for i in adj_list_prob:

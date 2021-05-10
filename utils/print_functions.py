@@ -11,8 +11,8 @@ def print_matrix(matrix, msg = "Macierz sąsiedztwa"):
     print()
 
 
-def print_adj_list(list):
-    print("Lista sąsiedztwa")
+def print_adj_list(list, msg = "Lista sąsiedztwa"):
+    print(msg)
     for i in range(len(list)):
         print(str(i + 1) + ". ", end="")
         print(list[i])
