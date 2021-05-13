@@ -1,12 +1,11 @@
-Zad1:
-    python zad1.py --nl {n} {l}  przyklad python zad1.py --gnl 5 3
-
+# Zadanie 1:
+    python zad1.py --nl {n} {l}  (przyklad python zad1.py --gnl 5 3)
     n [int] - liczba wierzcholkow
     l [int] - liczba krawedzi do wygenerowania
-Zad3:
+# Zadanie 3:
     python zad3.py ./matrix_zad2.txt
-Zad4:
+# Zadanie 4:
     python zad4.py ./matrix_zad2.txt
 
-Zad5: 
-    python zad5.py ./nazwa_pliku (macierz sąsiędztwa z wagami)
+# Zadanie 5: 
+    python zad5.py ./nazwa_pliku (macierz sąsiędztwa z wagami, np. macierz_1_zad5.txt)
