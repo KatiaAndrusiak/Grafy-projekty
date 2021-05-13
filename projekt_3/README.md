@@ -2,6 +2,8 @@
     python zad1.py --nl {n} {l}  (przyklad python zad1.py --gnl 5 3)
     n [int] - liczba wierzcholkow
     l [int] - liczba krawedzi do wygenerowania
+# Zadanie 2:    
+     python zad2.py ./nazwa_pliku (matrix_zad2.txt)
 # Zadanie 3:
     python zad3.py ./matrix_zad2.txt
 # Zadanie 4:
