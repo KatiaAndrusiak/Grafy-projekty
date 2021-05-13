@@ -23,4 +23,4 @@ Zadanie 5
    k[int] - stopień każdego z wierzchołków
 
 Zadanie 6
-    python zad6.py ./nazwa_pliku
+    python zad6.py ./nazwa_pliku (macierz sąsiedztwa)
