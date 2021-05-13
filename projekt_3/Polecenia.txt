@@ -9,4 +9,4 @@ Zad4:
     python zad4.py ./matrix_zad2.txt
 
 Zad5: 
-    python zad5.py ./nazwa_pliku
+    python zad5.py ./nazwa_pliku (macierz sąsiędztwa z wagami)

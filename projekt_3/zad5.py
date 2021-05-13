@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from matplotlib.pyplot import ion
 from zad1 import draw_graph_with_weight as plt
 from utils import convert_functions as cf
+from utils import components_functions as comp
 
 def convert_weight_adj_matrix_to_adj_list(matrix):
     adj_list = []
@@ -109,16 +110,19 @@ if __name__ == '__main__':
         ion()
         matrix = []
         matrix = cf.read_matrix_from_file(sys.argv[1], matrix)
-        res_matrix = prima(matrix)
+        if comp.matrix_is_symmetric(matrix):
+            res_matrix = prima(matrix)
 
-        n = len(matrix)
+            n = len(matrix)
 
-        pyp.figure(1)
-        plt(convert_weight_adj_matrix_to_adj_list(matrix), create_weight_edge_from_matrix(matrix), n)
-        input('press <ENTER> to continue')
-        pyp.figure(2)
-        plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
-        input('press <ENTER> to finish')
+            pyp.figure(1)
+            plt(convert_weight_adj_matrix_to_adj_list(matrix), create_weight_edge_from_matrix(matrix), n)
+            input('press <ENTER> to continue')
+            pyp.figure(2)
+            plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
+            input('press <ENTER> to finish')
+        else:
+            sys.exit("Jako argument trzeba podać macierz sąsiedztwa z wagami. Sprobuj jeszcze raz!")
     else:
         sys.exit("Nieprawidlowe polecenie. Zobacz 'python zad5.py --help'") 
 
