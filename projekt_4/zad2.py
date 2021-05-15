@@ -25,9 +25,9 @@ def DFS_visit(v, g, d, f, t):
     d[v] = t[0]
     for i in range(len(g[v])):
         if d[i] == -1 and g[v][i] == 1:
-            print(str(v + 1) + " " + str(i + 1) + " czas" + str(t))
+    #        print(str(v + 1) + " " + str(i + 1) + " czas" + str(t))
             DFS_visit(i, g, d, f, t)
-    print(str(v + 1) + " " + " czas" + str(t))
+    #print(str(v + 1) + " " + " czas" + str(t))
     t[0] += 1
     f[v] = t[0]
 
@@ -39,7 +39,7 @@ def Kosaraju(g):
     for i in range(len(g)):
         if d[i] == -1:
             DFS_visit(i, g, d, f, t)
-    print(f)
+    #print(f)
     gt = matrix_transpose(g)
     nr = 0
     comp = [-1 for _ in range(len(gt))]
@@ -56,17 +56,7 @@ def Kosaraju(g):
     sorted_comp = [[index, comp] for index, comp in enumerate(comp)]
     sorted_comp = sorted(sorted_comp, key=itemgetter(1), reverse=True)
 
-    print("Silnie spojne skladowe grafu:")
-    tmp = sorted_comp[0][1]
-    for i in sorted_comp:
-        if tmp == i[1]:
-            print(i[0] + 1, " ", end="")
-        else:
-            print()
-            print(i[0] + 1, " ", end="")
-        tmp = i[1]
-
-    return comp
+    return comp, sorted_comp
 
 
 if __name__ == '__main__':
@@ -81,7 +71,39 @@ if __name__ == '__main__':
     # ]
     # graph.create_with_adj_list(adj_l)
     # digraph = cf.convert_adj_list_to_adj_matrix(adj_l)
-    digraph = cf.convert_adj_list_to_adj_matrix(dig.random_graph_with_edge_as_probability(7, 0.2))
-    pf.print_matrix(digraph)
-    Kosaraju(digraph)
-    dig.draw_digraph(digraph)
+    n = 0
+    p = 0.0
+    if len(sys.argv) == 1:
+        sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad2.py --help'") 
+    elif sys.argv[1] == "--help":
+        sys.exit("użycie: python zad2.py --gnp [n] [p]\n"+
+          "n [int] - liczba wierzcholkow\n"+
+          "p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami")
+    elif sys.argv[1] == "--gnp" and len(sys.argv) == 4:
+        try:
+            n = int(sys.argv[2])
+            p = float(sys.argv[3])
+        except Exception as e:
+            print(e)
+            sys.exit(-1)
+        if n < 0:
+            print("liczba wierzcholkow musi byc nieujemna")
+            sys.exit(-1)
+        if p > 1 or p < 0:
+            print("Prawdopodobienstwo musi nalezec do zbioru <0.0,1.0>")
+            sys.exit(-1)
+        digraph = cf.convert_adj_list_to_adj_matrix(dig.random_graph_with_edge_as_probability(n, p))
+        pf.print_matrix(digraph)
+        sorted_comp = Kosaraju(digraph)[1]
+        print("Silnie spojne skladowe grafu:")
+        tmp = sorted_comp[0][1]
+        for i in sorted_comp:
+            if tmp == i[1]:
+                print(i[0] + 1, " ", end="")
+            else:
+                print()
+                print(i[0] + 1, " ", end="")
+            tmp = i[1]
+        dig.draw_digraph(digraph)
+    else:
+        sys.exit("Brak polecenia. Zobacz 'python zad2.py --help'")

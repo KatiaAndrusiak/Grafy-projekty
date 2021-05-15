@@ -66,7 +66,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad1.py --help'") 
     elif sys.argv[1] == "--help":
-        sys.exit("użycie:: python zad1.py --gnp [n] [p]\n"+
+        sys.exit("użycie: python zad1.py --gnp [n] [p]\n"+
           "n [int] - liczba wierzcholkow\n"+
           "p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami")
     elif sys.argv[1] == "--gnp" and len(sys.argv) == 4:
