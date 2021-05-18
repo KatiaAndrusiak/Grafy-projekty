@@ -17,7 +17,16 @@ def rand_weights(adj_matrix):
     for i in range(len(adj_matrix)):
         for j in range(len(adj_matrix[0])):
             if adj_matrix[i][j] == 1:
-                weights_matrix[i][j] = random.randint(-5, 11)
+                randNumber = random.randint(-5, 11)
+                if randNumber != 0:
+                    weights_matrix[i][j] = randNumber
+                    continue
+                else:
+                    while True:
+                        randNumber = random.randint(-5, 11)
+                        if randNumber != 0:
+                            break
+                weights_matrix[i][j] = randNumber
     return weights_matrix
 
 
@@ -91,7 +100,9 @@ def johnson(G, w):
     distance = []
 
     if bellman_Ford(Gprim, Wprim, size)[0] == False:
-        sys.exit("W grafie jest cykl o ujemnej wadze")        
+        print("W grafie jest cykl o ujemnej wadze")
+        dig.draw_digraph_with_weights(len(w), convert_adj_matrix_to_w_list(w))
+        sys.exit(-1)        
     else:
         h = bellman_Ford(Gprim, Wprim, size)[1]
         for u in range(size + 1):

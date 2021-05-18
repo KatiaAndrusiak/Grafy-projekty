@@ -51,7 +51,7 @@ def draw_digraph_with_weights(n, weight_list):
     plt.show()
 
 def random_graph_with_edge_as_probability(n, p):    
-    adj_list = [[] for q in range(n)]
+    adj_list = [[] for _ in range(n)]
     for v1 in range(1,n+1):
         for v2 in range(1,n+1):
             rand = random()
