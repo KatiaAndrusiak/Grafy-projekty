@@ -7,7 +7,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from utils import print_functions as pf
 from utils import convert_functions as cf
-from projekt_3 import zad2 as dj
 from projekt_4.zad2 import Kosaraju
 
 
