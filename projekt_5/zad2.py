@@ -28,8 +28,17 @@ def bfs(source, target, path, matrix):
         return visited[target]
 
 
-
-def ford_fulkenson(matrix, n):
+def ford_fulkerson(matrix, n):
+        """
+        The Edmonds–Karp implementation of the Ford–Fulkerson method.
+  
+        Parameters:
+            matrix (list of lists): Wage matrix of network.
+            n (int): Number of nodes
+          
+        Returns:
+            max_flow: maximum amount of flow that the network would allow to flow from source to target.
+        """
         source = 0
         target = n - 1
         path = [-1 for _ in range(n)]
@@ -52,8 +61,7 @@ def ford_fulkenson(matrix, n):
                 matrix[v][u] += path_flow
                 v = path[v]
 
-
-        return max_flow, matrix
+        return max_flow
 
 def drawNetworkWithFlows(flow_matrix, w_edges, la, n):
     x0 = 20
@@ -68,11 +76,13 @@ def drawNetworkWithFlows(flow_matrix, w_edges, la, n):
     #positions = nx.spring_layout(graph)
     graph.add_weighted_edges_from(w_edges)
     weights = nx.get_edge_attributes(graph, 'weight')
+    colors = []
     for i, j in weights.keys():
         weights[(i, j)] = str(flow_matrix[j][i]) + '/' + str(weights[(i, j)])
-    nx.draw(graph, pos=positions)
+        colors.append( 'r' if flow_matrix[j][i] == 0 else 'g')
+    nx.draw(graph, pos=positions, edge_color=colors)
     nx.draw_networkx_labels(graph, pos=positions)
-    nx.draw_networkx_edge_labels(graph, pos=positions, edge_labels=weights, font_color='red')
+    nx.draw_networkx_edge_labels(graph, pos=positions, edge_labels=weights, font_color='black')
     plt.show()
 
 
@@ -81,15 +91,15 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad2.py --help'") 
     elif sys.argv[1] == "--help" or len(sys.argv) > 3 or int(sys.argv[2]) < 2:
-        sys.exit("python zad2.py --n [n]   przyklad python zad2.py --n 5 \n"+
+        sys.exit("python zad2.py -n [n]   przyklad python zad2.py -n 5 \n"+
                  "n [int] - liczba warstw sieci minimum 2\n") 
-    elif sys.argv[1] == "--n":
+    elif sys.argv[1] == "-n":
         try:
                 levels = int(sys.argv[2])
-                n, la, w_edges, wage_mat = convertToWageMatrix(levels)
-                maxflow, flow_matrix = ford_fulkenson(wage_mat, n)
+                n, la, w_edges, matrix = convertToWageMatrix(levels)
+                maxflow = ford_fulkerson(matrix, n)
                 print(f'Maxymalny przeplyw: {maxflow}')
-                drawNetworkWithFlows(flow_matrix, w_edges, la, n)
+                drawNetworkWithFlows(matrix, w_edges, la, n)
         except Exception as e:
                 print(e)
                 sys.exit(-1)
