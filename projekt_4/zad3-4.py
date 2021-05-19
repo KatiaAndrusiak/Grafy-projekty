@@ -7,7 +7,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from utils import print_functions as pf
 from utils import convert_functions as cf
-from projekt_3 import zad2 as dj
 from projekt_4.zad2 import Kosaraju
 
 
@@ -17,25 +16,16 @@ def rand_weights(adj_matrix):
     for i in range(len(adj_matrix)):
         for j in range(len(adj_matrix[0])):
             if adj_matrix[i][j] == 1:
-                randNumber = random.randint(-5, 11)
-                if randNumber != 0:
-                    weights_matrix[i][j] = randNumber
-                    continue
-                else:
-                    while True:
-                        randNumber = random.randint(-5, 11)
-                        if randNumber != 0:
-                            break
-                weights_matrix[i][j] = randNumber
+                weights_matrix[i][j] = random.randint(-5, 11)
     return weights_matrix
 
 
-def convert_adj_matrix_to_w_list(adj_matrix):
+def convert_adj_matrix_to_w_list(adj_matrix, weights_matrix):
     weight_list = []
     for i in range(len(adj_matrix)):
         for j in range(len(adj_matrix[0])):
-            if adj_matrix[i][j] != 0:
-                weight_list.append([i+1, j+1, {'weight': adj_matrix[i][j]}])
+            if adj_matrix[i][j] == 1:
+                weight_list.append([i+1, j+1, {'weight': weights_matrix[i][j]}])
     return weight_list
 
 def create_G_and_W_prim(G, w, size):
@@ -53,11 +43,23 @@ def create_G_and_W_prim(G, w, size):
     Gprim.append(neighbours)
     return Gprim, Wprim
 
+def init(n, s, d_s, p_s):
+    for i in range(len(n)):
+        d_s[i] = float('inf')
+        p_s[i] = None
+    d_s[s] = 0
+
+
+def relax(u, v, w, d_s, p_s):
+    if d_s[v] > d_s[u] + w[u][v]:
+        d_s[v] = d_s[u] + w[u][v]
+        p_s[v] = u
+
 def dijkstra(G, w, s):
     n = len(G)
     d_s = [0]*n
     p_s = [0]*n
-    dj.init(G, s, d_s, p_s)
+    init(G, s, d_s, p_s)
     not_ready = [i for i in range(n)]
 
     while len(not_ready) != 0:
@@ -69,7 +71,7 @@ def dijkstra(G, w, s):
 
         for v in not_ready:
             if G[u][v] == 1:
-                dj.relax(u, v, w, d_s, p_s)
+                relax(u, v, w, d_s, p_s)
     return d_s, p_s
 
 
@@ -77,13 +79,13 @@ def bellman_Ford(G, w, s):
     n = len(G)
     d_s = [0] * n
     p_s = [0] * n
-    dj.init(G, s, d_s, p_s)
+    init(G, s, d_s, p_s)
 
     for _ in range(len(G) - 1):
         for u in range(n):
             for v in range(len(G[u])):
                 if G[u][v] == 1:
-                    dj.relax(u, v, w, d_s, p_s)
+                    relax(u, v, w, d_s, p_s)
     for u in range(n):
         for v in range(len(G[u])):
             if G[u][v] == 1:         
@@ -101,7 +103,7 @@ def johnson(G, w):
 
     if bellman_Ford(Gprim, Wprim, size)[0] == False:
         print("W grafie jest cykl o ujemnej wadze")
-        dig.draw_digraph_with_weights(len(w), convert_adj_matrix_to_w_list(w))
+        dig.draw_digraph_with_weights(len(w), convert_adj_matrix_to_w_list(G, w))
         sys.exit(-1)        
     else:
         h = bellman_Ford(Gprim, Wprim, size)[1]
@@ -144,22 +146,23 @@ if __name__ == '__main__':
             sys.exit(-1)
         count = 0
         graph = []
-        digraph = []
+        weighted_graph = []
         while True:
             count+=1
             graph = cf.convert_adj_list_to_adj_matrix(dig.random_graph_with_edge_as_probability(n, p))
-            digraph = rand_weights(graph)
+            weighted_graph = rand_weights(graph)
             comp = Kosaraju(graph)[0]
             if sum(comp) == len(comp):
                 break
             if count == 10000:
                 sys.exit("Nie udało się wygenerować losowy silnie spójny digraf. Podaj inne parametry i sprobuj jeszcze raz")
 
-        johnson_matrix = johnson(graph, digraph)
+        johnson_matrix = johnson(graph, weighted_graph)
 
-        for k in range(len(johnson_matrix)):
-            print(johnson_matrix[k])
-        dig.draw_digraph_with_weights(len(digraph), convert_adj_matrix_to_w_list(digraph))
+        print ("Maciersz odległości:")
+        print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in johnson_matrix]))
+        print(" ")
+        dig.draw_digraph_with_weights(len(weighted_graph), convert_adj_matrix_to_w_list(graph, weighted_graph))
     else:
         sys.exit("Brak polecenia. Zobacz 'python zad3-4.py --help'")
 

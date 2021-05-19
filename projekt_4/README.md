@@ -1,3 +1,7 @@
+# Przed pierwszym uruchomieniem:
+    pip install -r requirements.txt
+należy wykonać z poziomu wyżej (korzenia drzewa plików paczki).
+
 # Zadanie 1
     python zad1.py --gnp {n} {p}  przyklad python zad1.py --gnp 5 0.3	   
     n [int] - liczba wierzcholkow

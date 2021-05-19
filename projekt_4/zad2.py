@@ -25,9 +25,7 @@ def DFS_visit(v, g, d, f, t):
     d[v] = t[0]
     for i in range(len(g[v])):
         if d[i] == -1 and g[v][i] == 1:
-    #        print(str(v + 1) + " " + str(i + 1) + " czas" + str(t))
             DFS_visit(i, g, d, f, t)
-    #print(str(v + 1) + " " + " czas" + str(t))
     t[0] += 1
     f[v] = t[0]
 
@@ -60,17 +58,6 @@ def Kosaraju(g):
 
 
 if __name__ == '__main__':
-    # adj_l = [
-    #     [],
-    #     [3, 7],
-    #     [6],
-    #     [1, 2],
-    #     [3],
-    #     [3, 4],
-    #     [6]
-    # ]
-    # graph.create_with_adj_list(adj_l)
-    # digraph = cf.convert_adj_list_to_adj_matrix(adj_l)
     n = 0
     p = 0.0
     if len(sys.argv) == 1:
@@ -104,6 +91,7 @@ if __name__ == '__main__':
                 print()
                 print(i[0] + 1, " ", end="")
             tmp = i[1]
+        print("")
         dig.draw_digraph(digraph)
     else:
         sys.exit("Brak polecenia. Zobacz 'python zad2.py --help'")
