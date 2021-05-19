@@ -3,6 +3,7 @@ import os.path
 import random
 import zad1 as dig
 import copy
+from pandas import *
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from utils import print_functions as pf
@@ -17,25 +18,16 @@ def rand_weights(adj_matrix):
     for i in range(len(adj_matrix)):
         for j in range(len(adj_matrix[0])):
             if adj_matrix[i][j] == 1:
-                randNumber = random.randint(-5, 11)
-                if randNumber != 0:
-                    weights_matrix[i][j] = randNumber
-                    continue
-                else:
-                    while True:
-                        randNumber = random.randint(-5, 11)
-                        if randNumber != 0:
-                            break
-                weights_matrix[i][j] = randNumber
+                weights_matrix[i][j] = random.randint(-5, 11)
     return weights_matrix
 
 
-def convert_adj_matrix_to_w_list(adj_matrix):
+def convert_adj_matrix_to_w_list(adj_matrix, weights_matrix):
     weight_list = []
     for i in range(len(adj_matrix)):
         for j in range(len(adj_matrix[0])):
-            if adj_matrix[i][j] != 0:
-                weight_list.append([i+1, j+1, {'weight': adj_matrix[i][j]}])
+            if adj_matrix[i][j] == 1:
+                weight_list.append([i+1, j+1, {'weight': weights_matrix[i][j]}])
     return weight_list
 
 def create_G_and_W_prim(G, w, size):
@@ -101,7 +93,7 @@ def johnson(G, w):
 
     if bellman_Ford(Gprim, Wprim, size)[0] == False:
         print("W grafie jest cykl o ujemnej wadze")
-        dig.draw_digraph_with_weights(len(w), convert_adj_matrix_to_w_list(w))
+        dig.draw_digraph_with_weights(len(w), convert_adj_matrix_to_w_list(G, w))
         sys.exit(-1)        
     else:
         h = bellman_Ford(Gprim, Wprim, size)[1]
@@ -157,9 +149,10 @@ if __name__ == '__main__':
 
         johnson_matrix = johnson(graph, digraph)
 
-        for k in range(len(johnson_matrix)):
-            print(johnson_matrix[k])
-        dig.draw_digraph_with_weights(len(digraph), convert_adj_matrix_to_w_list(digraph))
+        print ("Maciersz odległości:")
+        print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in johnson_matrix]))
+        print(" ")
+        dig.draw_digraph_with_weights(len(digraph), convert_adj_matrix_to_w_list(graph, digraph))
     else:
         sys.exit("Brak polecenia. Zobacz 'python zad3-4.py --help'")
 
