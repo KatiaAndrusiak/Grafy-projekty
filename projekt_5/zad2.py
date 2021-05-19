@@ -80,9 +80,9 @@ def drawNetworkWithFlows(flow_matrix, w_edges, la, n):
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad2.py --help'") 
-    elif sys.argv[1] == "--help" or len(sys.argv) > 3:
+    elif sys.argv[1] == "--help" or len(sys.argv) > 3 or int(sys.argv[2]) < 2:
         sys.exit("python zad2.py --n [n]   przyklad python zad2.py --n 5 \n"+
-                 "n [int] - liczba warstw sieci\n") 
+                 "n [int] - liczba warstw sieci minimum 2\n") 
     elif sys.argv[1] == "--n":
         try:
                 levels = int(sys.argv[2])
