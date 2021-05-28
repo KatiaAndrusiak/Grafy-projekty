@@ -13,21 +13,21 @@ def drawNetwork(w_edges, la, n):
 
     for il, l in enumerate(la):
         for iv, v in enumerate(l):
-            positions.update({getNumberOfV(la, il) + iv: (x0 + il , y0 + iv)})
-
+            positions.update({getNumberOfV(la, il) + iv: (x0 + il + iv % 2 * 0.5, y0 + iv + iv % 2 * 0.5)})           
     graph = nx.DiGraph()
     graph.add_nodes_from(i for i in range(n))
     graph.add_weighted_edges_from(w_edges)
-    labels = nx.get_edge_attributes(graph, 'weight')
+    weights = nx.get_edge_attributes(graph, 'weight')
+
     nx.draw(graph, pos=positions)
     nx.draw_networkx_labels(graph, pos=positions)
-    nx.draw_networkx_edge_labels(graph, pos=positions, edge_labels=labels, font_color='red')
+    nx.draw_networkx_edge_labels(graph, pos=positions, edge_labels=weights, font_color='black')
     plt.show()
 
 def getNumberOfV(layers, n):
     if n == 0:
         return 0
-    return sum(len(k) for k in layers[:n])
+    return sum(len(i) for i in layers[:n])
 
 def generateRandomFlowNetwork(innerLayers):
     lastIndex = innerLayers + 1
@@ -66,20 +66,13 @@ def generateRandomFlowNetwork(innerLayers):
             else:
                 #dzielenie one to many
                 edges.append((i2 + getNumberOfV(layers, smaller_layer), i + getNumberOfV(layers, bigger_layer),weight))
-
+    
     l = 2*innerLayers
     while l > 0:
         n = randrange(1, lastIndex)
-        n2 = None
-        if n > 2 and n < lastIndex-1:
-            n2 = randrange(n-1, n+1)
-        elif n == 1:
-            n2 = randrange(n, n+1)
-        else:
-            n2 = randrange(n-1, n)
+
+        n2 = randrange(1, lastIndex)
             
-        #nw = len(layers[n])
-        #nw2 = len(layers[n2])
         
         ni = randrange(len(layers[n]))
 
@@ -93,19 +86,19 @@ def generateRandomFlowNetwork(innerLayers):
 
         weight = randrange(1, 11)
 
-        check = (ni2 + getNumberOfV(layers, n2), ni + getNumberOfV(layers, n),weight)
+        check = (ni2 + getNumberOfV(layers, n2), ni + getNumberOfV(layers, n), weight)
         verticeChecked = True
 
         for t in edges:
             
-            if (check[0],check[1])==(t[0],t[1]) or (check[1],check[0])==(t[0],t[1]):
+            if (check[0], check[1]) == (t[0], t[1]) or (check[1], check[0]) == (t[0], t[1]):
                 verticeChecked = False
                 
         if verticeChecked == True:
             if random() >= 0.5:
-                edges.append((check[0], check[1],  check[2]))
+                edges.append((check[0], check[1], check[2]))
             else:
-                edges.append((check[1], check[0],  check[2]))
+                edges.append((check[1], check[0], check[2]))
             l = l - 1
             
         verticeChecked = True
@@ -130,16 +123,16 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         sys.exit("Nie wybrano żadnego polecenia. Zobacz 'python zad1.py --help'") 
     elif sys.argv[1] == "--help" or len(sys.argv) > 3:
-        sys.exit("python zad1.py --n [n]   przyklad python zad1.py --n 5 \n"+
-                 "n [int] - liczba warstw sieci\n") 
-    elif sys.argv[1] == "--n":
+        sys.exit("python zad1.py --n [n]   przyklad python zad1.py -n 5 \n"+
+                 "n [int] - liczba warstw posrednich sieci\n") 
+    elif sys.argv[1] == "-n":
         try:
                 levels = int(sys.argv[2])
                 if levels < 2 :
                     sys.exit("liczba warstw posrednich musi byc wieksza od 1")
                     
-                n, layers, alle, wage_mat = convertToWageMatrix(levels)
-                drawNetwork(alle, layers, n)
+                n, layers, edges, wage_mat = convertToWageMatrix(levels)
+                drawNetwork(edges, layers, n)
         except Exception as e:
                 print(e)
                 sys.exit(-1)
