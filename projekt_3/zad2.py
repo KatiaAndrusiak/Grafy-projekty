@@ -2,7 +2,7 @@ import sys
 import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils import convert_functions as cf
-
+from utils import print_functions as pf
 def matrix_is_symmetric(matrix):
     for i in range(len(matrix)):
         if len(matrix) != len(matrix[i]):
@@ -70,6 +70,9 @@ if __name__ == '__main__':
         if not matrix_is_symmetric(w_matrix):
             sys.exit("\nPodana macierz nie spełnia założenia dla macierzy sąsiedstwa")
         else:
+            print("Maciersz wag:")
+            print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in w_matrix]))
+            print(" ")
             start = 0
             d, p = dijkstra(w_matrix, start)
             print_dijkstra_solution(d, p, start)

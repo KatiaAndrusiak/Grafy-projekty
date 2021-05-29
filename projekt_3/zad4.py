@@ -29,6 +29,8 @@ for k in range(len(dist_matrix[0])):
 	
 
 result = minimaxAndCenter(dist_matrix)
-print(f'centrum grafu: {result[0] + 1}, minimax: {result[1] + 1}')
+print()
+print(f'centrum grafu: {result[0] + 1}, (suma odleglosci : {sum(dist_matrix[result[0]])})')
+print(f'minimax: {result[1] + 1}, (odleglosc od najdalszego : {max(dist_matrix[result[1]])})')
 
 
