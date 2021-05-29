@@ -23,7 +23,6 @@ def convert_weight_adj_matrix_to_adj_list(matrix):
     return adj_list
 
 
-
 def create_weight_edge_from_matrix(matrix):
     pairs = []
     for i in range(1, len(matrix)):
@@ -51,7 +50,6 @@ def prima(W):
 
     road_length = 0
 
-    
     while free_vertexes:
         min_link = None  
         overall_min_path = inf  
@@ -88,7 +86,6 @@ def prima(W):
 
     print('Suma wag: %s' % road_length)
 
-
     for i in range(len(res_matrix)):
         if len(edge_weight[i]) == 0:
             continue
@@ -98,7 +95,6 @@ def prima(W):
             value = edge_weight[i][j][1]
             res_matrix[row][column] = res_matrix[column][row] = value
     return res_matrix
-
 
 
 if __name__ == '__main__':
@@ -117,10 +113,12 @@ if __name__ == '__main__':
 
             pyp.figure(1)
             plt(convert_weight_adj_matrix_to_adj_list(matrix), create_weight_edge_from_matrix(matrix), n)
-            input('press <ENTER> to continue')
             pyp.figure(2)
             plt(convert_weight_adj_matrix_to_adj_list(res_matrix), create_weight_edge_from_matrix(res_matrix), n)
+
+            pyp.show()
             input('press <ENTER> to finish')
+
         else:
             sys.exit("Jako argument trzeba podać macierz sąsiedztwa z wagami. Sprobuj jeszcze raz!")
     else:
