@@ -26,4 +26,9 @@ def print_hamiltonian_cycle(list):
         else:
             print(str(list[i] + 1), end=" -> ")
     print()
+
+def print_matrix_with_space(matrix, msg = "Macierz sąsiedztwa"):
+    print(msg)
+    print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in matrix]))
+    print(" ")
         
