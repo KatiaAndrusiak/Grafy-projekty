@@ -12,6 +12,11 @@ należy wykonać z poziomu wyżej (korzenia drzewa plików paczki).
     python zad2.py --gnp {n} {p}  przyklad python zad2.py --gnp 5 0.3	   
     n [int] - liczba wierzcholkow
     p [float] - prawdopodobienstwo wygenerowania krawedzi pomiedzy dwoma wierzcholkami
+   
+    python zad2.py [flaga] ./nazwa_pliku
+    --am -  macierz sąsiedztwa(musi sprawdzać założenia dla macierzy sąsiedztwa) (macierz_2.txt)
+    --al -  lista sąsiedztwa (listaA.txt)
+
     --help - flaga pomocnicza
 
 # Zadanie 3-4

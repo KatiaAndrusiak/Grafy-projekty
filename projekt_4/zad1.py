@@ -9,7 +9,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 from utils import convert_functions as cf
 from utils import print_functions as pf
 
-
 def draw_digraph(adj_matrix):
     G = nx.DiGraph()
     for i in range(len(adj_matrix)):

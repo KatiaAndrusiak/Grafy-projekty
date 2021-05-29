@@ -29,6 +29,12 @@ def matrix_is_symmetric(matrix):
                 return False
     return True
 
+def is_matrix(matrix):
+    for i in range(len(matrix)):
+        if len(matrix) != len(matrix[i]):
+            return False
+    return True
+
 def check_adj_list(adj_list):
     counter = 0
     for i in range(len(adj_list)):
