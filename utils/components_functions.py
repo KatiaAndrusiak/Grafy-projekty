@@ -47,5 +47,3 @@ def check_is_inc_matrix(matrix):
         else:
             sum = 0
     return True
-
-        
